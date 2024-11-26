@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Quotation Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Insurance Quotation Calculator</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('calculate_quote') }}" method="post">
+        <label>First Name:</label><br>
+        <input type="text" name="first_name" required><br><br>
+
+        <label>Last Name:</label><br>
+        <input type="text" name="last_name" required><br><br>
+
+        <label>Date of Birth:</label><br>
+        <input type="date" name="date_of_birth" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Coverage Type:</label><br>
+        <select name="coverage_type" required>
+            {% for coverage in coverage_types %}
+            <option value="{{ coverage[0] }}">{{ coverage[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Get Quote">
+    </form>
+</body>
+</html>
